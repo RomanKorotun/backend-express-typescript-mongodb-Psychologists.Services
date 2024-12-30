@@ -3,7 +3,10 @@ import Psychologist from "../../models/Psychologist.js";
 import { ICustomerRequest } from "../../interfaces/authInterfaces.js";
 import generateSort from "../../helpers/generateSort.js";
 
-const psychologistsLoggedIn = async (req: ICustomerRequest, res: Response) => {
+const getAllFavoritePsychologistsForLoggedInUser = async (
+  req: ICustomerRequest,
+  res: Response
+) => {
   const { email } = req.user;
   const { name, price, popular } = req.query;
   const page = parseInt(req.query.page as string) || 1;
@@ -12,22 +15,24 @@ const psychologistsLoggedIn = async (req: ICustomerRequest, res: Response) => {
 
   const sort = generateSort(name as string, price as string, popular as string);
 
-  const psychologistsPagination = await Psychologist.find(
-    {
-      $or: [{ owner: { $size: 0 } }, { owner: { $in: [email] } }],
-    },
-    "-updatedAt"
+  const psychologistsFavoritePagination = await Psychologist.find(
+    { owner: { $in: [email] } },
+    "-updatedAt -reviews"
   )
     .sort(sort)
     .skip(skip)
     .limit(limit);
 
-  const allPsychologists = await Psychologist.find({});
-  const pagesQuintity = Math.ceil(allPsychologists.length / limit);
+  const allPsychologistsFavorite = await Psychologist.find({
+    owner: { $in: [email] },
+  });
+
+  const pagesQuintity = Math.ceil(allPsychologistsFavorite.length / limit);
+
   res.json({
-    items: psychologistsPagination,
+    items: psychologistsFavoritePagination,
     pagesQuintity,
   });
 };
 
-export default psychologistsLoggedIn;
+export default getAllFavoritePsychologistsForLoggedInUser;

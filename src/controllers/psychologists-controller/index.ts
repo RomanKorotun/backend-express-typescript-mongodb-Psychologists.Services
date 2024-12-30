@@ -1,4 +1,7 @@
-export { default as psychologistsNotLoggedIn } from "./psychologistsNotLoggedIn.js";
-export { default as psychologistsLoggedIn } from "./psychologistsLoggedIn.js";
-export { default as updatePsychologistsCardLoggedIn } from "./updatePsychologistsCardLoggedIn.js";
-export { default as psychologistsFavorite } from "./psychologistsFavorite.js";
+export { default as getAllPsychologistsForNotLoggedInUser } from "./getAllPsychologistsForNotLoggedInUser.js";
+export { default as getAllPsychologistsForLoggedInUser } from "./getAllPsychologistsForLoggedInUser.js";
+export { default as toggleFavoriteCardForLoggedInUser } from "./toggleFavoriteCardForLoggedInUser.js";
+export { default as getAllFavoritePsychologistsForLoggedInUser } from "./getAllFavoritePsychologistsForLoggedInUser.js";
+export { default as getOnePsychologistForNotLoggedInUser } from "./getOnePsychologistForNotLoggedInUser..js";
+export { default as getOnePsychologistForLoggedInUser } from "./getOnePsychologistForLoggedInUser.js";
+export { default as addReviewForLoggedInUser } from "./addReviewForLoggedInUser.js";

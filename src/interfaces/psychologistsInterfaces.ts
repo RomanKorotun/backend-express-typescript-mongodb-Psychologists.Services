@@ -8,9 +8,9 @@ export interface IPsychologistsDocument extends Document {
   name: string;
   avatar_url: string;
   experience: string;
-  reviews: { [key: string]: string }[];
+  reviews: { [key: string]: string | number }[];
   price_per_hour: string;
-  rating: string;
+  rating: number;
   license: string;
   specialization: string;
   initial_consultation: string;

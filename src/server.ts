@@ -1,4 +1,4 @@
-import app from "./app.js";
+import server from "./app.js";
 import mongoose, { Error } from "mongoose";
 import "dotenv/config.js";
 
@@ -9,7 +9,7 @@ if (DB_HOST) {
     .connect(DB_HOST)
     .then((): void => {
       console.log("Database connect success");
-      app.listen(PORT, (): void => {
+      server.listen(PORT, (): void => {
         console.log(`Server running on ${PORT} PORT`);
       });
     })

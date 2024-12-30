@@ -1,8 +1,9 @@
 import { Response } from "express";
 import Psychologist from "../../models/Psychologist.js";
 import { ICustomerRequest } from "../../interfaces/authInterfaces.js";
+import { HttpError } from "../../helpers/index.js";
 
-const updatePsychologistsCardLoggedIn = async (
+const toggleFavoriteCardForLoggedInUser = async (
   req: ICustomerRequest,
   res: Response
 ) => {
@@ -15,10 +16,21 @@ const updatePsychologistsCardLoggedIn = async (
   } else {
     card?.owner.push(email);
   }
+
   const updateCard = await Psychologist.findByIdAndUpdate(id, {
     owner: card?.owner,
-  });
-  res.json(updateCard);
+  }).select("-updatedAt");
+
+  if (!updateCard) {
+    throw HttpError(404);
+  }
+
+  const responseCard = {
+    ...updateCard.toObject(),
+    owner: idx !== -1 ? [] : [email],
+  };
+
+  res.json(responseCard);
 };
 
-export default updatePsychologistsCardLoggedIn;
+export default toggleFavoriteCardForLoggedInUser;

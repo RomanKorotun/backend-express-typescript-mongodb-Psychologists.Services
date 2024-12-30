@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import Psychologist from "../../models/Psychologist.js";
 import generateSort from "../../helpers/generateSort.js";
 
-const psychologistsNotLoggedIn = async (req: Request, res: Response) => {
+const getAllPsychologistsForNotLoggedInUser = async (
+  req: Request,
+  res: Response
+) => {
   const { name, price, popular } = req.query;
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 3;
@@ -12,7 +15,7 @@ const psychologistsNotLoggedIn = async (req: Request, res: Response) => {
 
   const psychologistsPagination = await Psychologist.find(
     {},
-    "-owner -updatedAt"
+    "-owner -updatedAt -reviews"
   )
     .sort(sort)
     .skip(skip)
@@ -24,4 +27,4 @@ const psychologistsNotLoggedIn = async (req: Request, res: Response) => {
     pagesQuintity,
   });
 };
-export default psychologistsNotLoggedIn;
+export default getAllPsychologistsForNotLoggedInUser;

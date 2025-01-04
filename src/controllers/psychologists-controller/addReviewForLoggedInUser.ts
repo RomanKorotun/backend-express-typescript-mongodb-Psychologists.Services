@@ -27,8 +27,8 @@ const addReviewForLoggedInUser = async (
     },
     $set: { rating: newRating },
   }).select("-updatedAt");
+
   wsServer.emit("newReview", newPsychologist);
-  // res.json(newPsychologist);
 };
 
 export default addReviewForLoggedInUser;

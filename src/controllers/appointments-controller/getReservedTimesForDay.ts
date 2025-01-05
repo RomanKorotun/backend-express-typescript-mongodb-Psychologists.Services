@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import ReservedTime from "../../models/ReservedTime.js";
 
 const timesInterval = [
@@ -12,20 +12,20 @@ const timesInterval = [
 ];
 
 const getReservedTimesForDay = async (req: Request, res: Response) => {
-  const { id, date: dateString } = req.params;
+  const { id, date } = req.params;
 
-  const date = new Date(dateString);
-  const utcDate = new Date(
-    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
-  );
+  // const date = new Date(dateString);
+  // const utcDate = new Date(
+  //   Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+  // );
   // const formattedDate = date.toISOString();
 
-  const formattedDate = format(utcDate, "yyyy-MM-dd");
-  console.log(formattedDate);
+  // const formattedDate = format(date, "yyyy-MM-ddTHH:mm:ss");
+  // console.log(formattedDate);
 
   const data = await ReservedTime.find({
     psychologistId: id,
-    date: formattedDate,
+    date,
   });
 
   console.log(data);

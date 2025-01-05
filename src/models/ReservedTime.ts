@@ -15,7 +15,7 @@ const ReservedTimeSchema = new Schema(
 
 ReservedTimeSchema.post("save", handleSaveError);
 
-export const addReservedTimesSchema = Joi.object({
+export const addReservedTimeSchema = Joi.object({
   psychologistId: Joi.string().required(),
   clientId: Joi.string().required(),
   date: Joi.string().required(),

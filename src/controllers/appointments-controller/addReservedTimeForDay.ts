@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import ReservedTime from "../../models/ReservedTime.js";
 import { wsServer } from "../../app.js";
 
-const addReservedTimesForDay = async (req: Request, res: Response) => {
+const addReservedTimeForDay = async (req: Request, res: Response) => {
   const { psychologistId, clientId } = req.body;
 
   await ReservedTime.findOneAndDelete({ psychologistId, clientId });
@@ -15,6 +15,8 @@ const addReservedTimesForDay = async (req: Request, res: Response) => {
     time: reservedTimes.time,
     isReserved: reservedTimes.isReserved,
   });
+
+  res.json({ message: "Time successfully reserved" });
 };
 
-export default addReservedTimesForDay;
+export default addReservedTimeForDay;

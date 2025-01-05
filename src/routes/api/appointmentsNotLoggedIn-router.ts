@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import { ctrlWrapper, isValidBody } from "../../decorators/index.js";
 import {
   addAppointmentNotLoggedInUser,
-  addReservedTimesForDay,
+  getAppointmentNotLoggedInUser,
 } from "../../controllers/appointments-controller/index.js";
 import { isEmptyBody, isValid } from "../../middleware/index.js";
 import { appointmentNotLoggedInSchema } from "../../models/Appointment.js";
@@ -14,6 +14,11 @@ appointmentsNotLoggedInRouter.post(
   isEmptyBody,
   isValidBody(appointmentNotLoggedInSchema),
   ctrlWrapper(addAppointmentNotLoggedInUser)
+);
+
+appointmentsNotLoggedInRouter.get(
+  "/:clientId",
+  ctrlWrapper(getAppointmentNotLoggedInUser)
 );
 
 export default appointmentsNotLoggedInRouter;

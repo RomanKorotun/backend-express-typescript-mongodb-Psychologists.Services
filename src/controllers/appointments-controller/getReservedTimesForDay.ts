@@ -13,7 +13,7 @@ const timesInterval = [
 const getReservedTimesForDay = async (req: Request, res: Response) => {
   const { id, date: dateString } = req.params;
   const date = new Date(dateString);
-  const formattedDate = date.toISOString();
+  const formattedDate = date.toLocaleString();
 
   const data = await ReservedTime.find({
     psychologistId: id,
@@ -21,8 +21,16 @@ const getReservedTimesForDay = async (req: Request, res: Response) => {
   });
 
   const reservedTimes = timesInterval.map((item) => {
-    const isReserved = data.some((elem) => elem.time === item);
-    return { time: item, isReserved };
+    const reservedTime = data.find((elem) => elem.time === item);
+    if (reservedTime) {
+      return {
+        time: item,
+        isReserved: reservedTime.isReserved,
+        clientId: reservedTime.clientId,
+      };
+    } else {
+      return { time: item, isReserved: false, clientId: null };
+    }
   });
 
   res.json({ reservedTimes });

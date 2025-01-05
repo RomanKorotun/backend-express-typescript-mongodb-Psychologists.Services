@@ -15,9 +15,12 @@ const getReservedTimesForDay = async (req: Request, res: Response) => {
   const { id, date: dateString } = req.params;
 
   const date = new Date(dateString);
+  const utcDate = new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+  );
   // const formattedDate = date.toISOString();
 
-  const formattedDate = format(date, "yyyy-MM-dd");
+  const formattedDate = format(utcDate, "yyyy-MM-dd");
   console.log(formattedDate);
 
   const data = await ReservedTime.find({

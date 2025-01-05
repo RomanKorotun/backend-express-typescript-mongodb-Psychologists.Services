@@ -15,15 +15,18 @@ const getReservedTimesForDay = async (req: Request, res: Response) => {
   const { id, date: dateString } = req.params;
   console.log(dateString);
 
-  const date = parseISO(dateString);
+  // const date = parseISO(dateString);
+  // console.log(date);
+
+  // const formattedDate = format(date, "yyyy-MM-dd");
+  // console.log(formattedDate);
+  const date = new Date(dateString);
   console.log(date);
-
-  const formattedDate = format(date, "yyyy-MM-dd");
-  console.log(formattedDate);
-
+  const utcDate = date.toISOString();
+  console.log(utcDate);
   const data = await ReservedTime.find({
     psychologistId: id,
-    date: formattedDate,
+    date: utcDate,
   });
 
   console.log(data);

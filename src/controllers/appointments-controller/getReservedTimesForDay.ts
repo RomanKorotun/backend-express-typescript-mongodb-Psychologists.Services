@@ -13,7 +13,7 @@ const timesInterval = [
 const getReservedTimesForDay = async (req: Request, res: Response) => {
   const { id, date: dateString } = req.params;
   const date = new Date(dateString);
-  const formattedDate = date.toLocaleString();
+  const formattedDate = date.toISOString();
 
   const data = await ReservedTime.find({
     psychologistId: id,

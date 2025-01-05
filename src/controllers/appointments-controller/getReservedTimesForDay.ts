@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { format } from "date-fns";
 import ReservedTime from "../../models/ReservedTime.js";
 
 const timesInterval = [
@@ -13,7 +14,8 @@ const timesInterval = [
 const getReservedTimesForDay = async (req: Request, res: Response) => {
   const { id, date: dateString } = req.params;
   const date = new Date(dateString);
-  const formattedDate = date.toISOString();
+  // const formattedDate = date.toISOString();
+  const formattedDate = format(date, "yyyy-MM-dd");
 
   const data = await ReservedTime.find({
     psychologistId: id,

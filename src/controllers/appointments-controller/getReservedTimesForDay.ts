@@ -14,8 +14,6 @@ const timesInterval = [
 const getReservedTimesForDay = async (req: Request, res: Response) => {
   const { id, date: dateString } = req.params;
 
-  console.log(dateString);
-
   const timeZone = "Europe/Kiev";
 
   const zonedDate = toZonedTime(new Date(dateString), timeZone);
@@ -23,8 +21,6 @@ const getReservedTimesForDay = async (req: Request, res: Response) => {
   const formattedDate = format(zonedDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
     timeZone: "UTC",
   });
-
-  console.log(formattedDate);
 
   const data = await ReservedTime.find({
     psychologistId: id,

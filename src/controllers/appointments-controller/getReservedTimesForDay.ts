@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { format } from "date-fns";
+import { toZonedTime, format } from "date-fns-tz";
 import ReservedTime from "../../models/ReservedTime.js";
 
 const timesInterval = [
@@ -14,15 +14,22 @@ const timesInterval = [
 const getReservedTimesForDay = async (req: Request, res: Response) => {
   const { id, date: dateString } = req.params;
 
-  const date = new Date(format(dateString, "yyyy-MM-dd"));
-  console.log(date);
+  console.log(dateString);
+
+  const timeZone = "Europe/Kiev";
+
+  const zonedDate = toZonedTime(new Date(dateString), timeZone);
+
+  const formattedDate = format(zonedDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
+    timeZone: "UTC",
+  });
+
+  console.log(formattedDate);
 
   const data = await ReservedTime.find({
     psychologistId: id,
-    date,
+    date: formattedDate,
   });
-
-  console.log(data);
 
   const reservedTimes = timesInterval.map((item) => {
     const reservedTime = data.find((elem) => elem.time === item);

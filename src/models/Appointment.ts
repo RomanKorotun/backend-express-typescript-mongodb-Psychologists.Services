@@ -12,7 +12,7 @@ const AppointmentSchema = new Schema(
     client_name: { type: String, required: true },
     client_phone: { type: String, required: true },
     client_email: { type: String, match: emailRegexp, required: true },
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
     time: { type: String, required: true },
     paymentStatus: {
       type: String,

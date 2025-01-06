@@ -14,12 +14,15 @@ const timesInterval = [
 const getReservedTimesForDay = async (req: Request, res: Response) => {
   const { id, date: dateString } = req.params;
 
-  const date = format(dateString, "yyyy-MM-dd");
+  const date = new Date(format(dateString, "yyyy-MM-dd"));
+  console.log(date);
 
   const data = await ReservedTime.find({
     psychologistId: id,
     date,
   });
+
+  console.log(data);
 
   const reservedTimes = timesInterval.map((item) => {
     const reservedTime = data.find((elem) => elem.time === item);

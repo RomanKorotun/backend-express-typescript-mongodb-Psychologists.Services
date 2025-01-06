@@ -6,7 +6,7 @@ const ReservedTimeSchema = new Schema(
   {
     psychologistId: { type: Schema.Types.ObjectId, required: true },
     clientId: { type: String, required: true },
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
     time: { type: String, required: true },
     isReserved: { type: Boolean, default: true },
   },

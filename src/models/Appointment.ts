@@ -26,7 +26,7 @@ const AppointmentSchema = new Schema(
 
 AppointmentSchema.post("save", handleSaveError);
 
-export const appointmentNotLoggedInSchema = Joi.object({
+export const appointmentForNotLoggedInUserSchema = Joi.object({
   psychologistId: Joi.string().required(),
   clientId: Joi.string().required(),
   client_name: Joi.string().required(),

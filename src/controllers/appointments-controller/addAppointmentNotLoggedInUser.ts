@@ -3,7 +3,7 @@ import Appointment from "../../models/Appointment.js";
 import Psychologist from "../../models/Psychologist.js";
 import { HttpError } from "../../helpers/index.js";
 
-const addAppointmentNotLoggedInUser = async (req: Request, res: Response) => {
+const addAppointment = async (req: Request, res: Response) => {
   const { psychologistId } = req.body;
   const psychologist = await Psychologist.findById(psychologistId);
   if (!psychologist) {
@@ -13,4 +13,4 @@ const addAppointmentNotLoggedInUser = async (req: Request, res: Response) => {
   res.status(201).json(appointment);
 };
 
-export default addAppointmentNotLoggedInUser;
+export default addAppointment;

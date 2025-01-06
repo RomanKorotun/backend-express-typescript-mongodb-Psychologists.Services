@@ -6,17 +6,17 @@ import {
 } from "../../controllers/psychologists-controller/index.js";
 import isValid from "../../middleware/isValid.js";
 
-const psychologistsNotLoggedInRouter: Router = express.Router();
+const psychologistsForNotLoggedInUserRouter: Router = express.Router();
 
-psychologistsNotLoggedInRouter.get(
+psychologistsForNotLoggedInUserRouter.get(
   "/",
   ctrlWrapper(getAllPsychologistsForNotLoggedInUser)
 );
 
-psychologistsNotLoggedInRouter.get(
+psychologistsForNotLoggedInUserRouter.get(
   "/:id",
   isValid,
   ctrlWrapper(getOnePsychologistForNotLoggedInUser)
 );
 
-export default psychologistsNotLoggedInRouter;
+export default psychologistsForNotLoggedInUserRouter;

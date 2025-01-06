@@ -10,29 +10,29 @@ import authenticate from "../../middleware/authenticate.js";
 import { isEmptyBody, isValid } from "../../middleware/index.js";
 import { psychologistReviewSchema } from "../../models/Psychologist.js";
 
-const psychologistsLoggedInRouter: Router = express.Router();
+const psychologistsForLoggedInUserRouter: Router = express.Router();
 
-psychologistsLoggedInRouter.get(
+psychologistsForLoggedInUserRouter.get(
   "/",
   authenticate,
   ctrlWrapper(getAllPsychologistsForLoggedInUser)
 );
 
-psychologistsLoggedInRouter.get(
+psychologistsForLoggedInUserRouter.get(
   "/:id",
   authenticate,
   isValid,
   ctrlWrapper(getOnePsychologistForLoggedInUser)
 );
 
-psychologistsLoggedInRouter.put(
+psychologistsForLoggedInUserRouter.put(
   "/:id/favorite",
   authenticate,
   isValid,
   ctrlWrapper(toggleFavoriteCardForLoggedInUser)
 );
 
-psychologistsLoggedInRouter.post(
+psychologistsForLoggedInUserRouter.post(
   "/:id/reviews",
   authenticate,
   isValid,
@@ -41,4 +41,4 @@ psychologistsLoggedInRouter.post(
   ctrlWrapper(addReviewForLoggedInUser)
 );
 
-export default psychologistsLoggedInRouter;
+export default psychologistsForLoggedInUserRouter;

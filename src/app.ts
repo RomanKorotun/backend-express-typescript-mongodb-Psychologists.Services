@@ -4,10 +4,10 @@ import http from "http";
 import { Server } from "socket.io";
 import logger from "morgan";
 import authRouter from "./routes/api/auth-router.js";
-import psychologistsNotLoggedInRouter from "./routes/api/psychologistsNotLoggedIn-router.js";
-import psychologistsLoggedInRouter from "./routes/api/psychologistsLoggedIn-router.js";
+import psychologistsForNotLoggedInUserRouter from "./routes/api/psychologistsForNotLoggedInUser-router.js";
+import psychologistsForLoggedInUserRouter from "./routes/api/psychologistsForLoggedInUser-router.js";
 import psychologistsFavoriteRouter from "./routes/api/psychologistsFavorite-router.js";
-import appointmentsNotLoggedInRouter from "./routes/api/appointmentsNotLoggedIn-router.js";
+import appointmentsForNotLoggedInUserRouter from "./routes/api/appointmentsForNotLoggedInUser-router.js";
 import reserdevTimesRouter from "./routes/api/reservedTime-router.js";
 
 const app: Application = express();
@@ -24,13 +24,15 @@ app.use(express.json());
 
 app.use("/api/auth", authRouter);
 
-app.use("/api/not-loggedin/psychologists", psychologistsNotLoggedInRouter);
-app.use("/api/not-loggedin/appointments", appointmentsNotLoggedInRouter);
-
-app.use("/api/reserved-times", reserdevTimesRouter);
-
-app.use("/api/loggedin/psychologists", psychologistsLoggedInRouter);
+app.use(
+  "/api/not-loggedin/psychologists",
+  psychologistsForNotLoggedInUserRouter
+);
+app.use("/api/loggedin/psychologists", psychologistsForLoggedInUserRouter);
 app.use("/api/psychologists/favorite", psychologistsFavoriteRouter);
+
+app.use("/api/not-loggedin/appointments", appointmentsForNotLoggedInUserRouter);
+app.use("/api/reserved-times", reserdevTimesRouter);
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({ message: "Not Found" });

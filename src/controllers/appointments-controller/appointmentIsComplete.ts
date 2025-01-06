@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Appointment from "../../models/Appointment.js";
 import ReservedTime from "../../models/ReservedTime.js";
 
-const getAppointmentNotLoggedInUser = async (req: Request, res: Response) => {
+const appointmentIsComplete = async (req: Request, res: Response) => {
   const { clientId } = req.params;
   const appointment = await Appointment.findOne({
     clientId,
@@ -14,4 +14,4 @@ const getAppointmentNotLoggedInUser = async (req: Request, res: Response) => {
   res.json({ message: "Success" });
 };
 
-export default getAppointmentNotLoggedInUser;
+export default appointmentIsComplete;

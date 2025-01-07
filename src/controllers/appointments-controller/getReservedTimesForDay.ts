@@ -12,19 +12,25 @@ const timesInterval = [
 ];
 
 const getReservedTimesForDay = async (req: Request, res: Response) => {
-  const { id, date: dateString } = req.params;
+  const { id, date } = req.params;
 
-  const timeZone = "Europe/Kiev";
+  // const timeZone = "Europe/Kiev";
 
-  const zonedDate = toZonedTime(new Date(dateString), timeZone);
+  // const zonedDate = toZonedTime(new Date(dateString), timeZone);
 
-  const formattedDate = format(zonedDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
-    timeZone: "UTC",
-  });
+  // const formattedDate = format(zonedDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
+  //   timeZone: "UTC",
+  // });
+
+  // const data = await ReservedTime.find({
+  //   psychologistId: id,
+  //   date: formattedDate,
+  // });
+  // console.log(dateString);
 
   const data = await ReservedTime.find({
     psychologistId: id,
-    date: formattedDate,
+    date,
   });
 
   const reservedTimes = timesInterval.map((item) => {

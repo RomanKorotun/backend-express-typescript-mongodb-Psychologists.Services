@@ -6,8 +6,10 @@ import {
   logout,
   signin,
   signup,
+  updateAvatar,
 } from "../../controllers/auth-controller/index.js";
 import { current } from "../../controllers/auth-controller/current.js";
+import { upload } from "../../middleware/index.js";
 
 const authRouter: Router = express.Router();
 
@@ -23,6 +25,13 @@ authRouter.post(
   isEmptyBody,
   isValidBody(userSigninSchema),
   ctrlWrapper(signin)
+);
+
+authRouter.put(
+  "/avatar",
+  authenticate,
+  upload.single("avatar"),
+  ctrlWrapper(updateAvatar)
 );
 
 authRouter.post("/logout", authenticate, ctrlWrapper(logout));

@@ -36,7 +36,7 @@ const signup = async (req: Request, res: Response) => {
   }
 
   const avatarDefault =
-    "https://res.cloudinary.com/drqeo1pu5/image/upload/v1723481110/psychologists.services/avatars/avatar_default_jpg_beamoi.jpg";
+    "https://res.cloudinary.com/drqeo1pu5/image/upload/v1736688386/psychologists.services/avatars/images_hy6aoo.png";
 
   const hashPassword = await bcryptjs.hash(password, 10);
 

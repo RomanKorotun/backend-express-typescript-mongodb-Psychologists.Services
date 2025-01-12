@@ -9,6 +9,7 @@ import psychologistsForLoggedInUserRouter from "./routes/api/psychologistsForLog
 import psychologistsFavoriteRouter from "./routes/api/psychologistsFavorite-router.js";
 import appointmentsForNotLoggedInUserRouter from "./routes/api/appointmentsForNotLoggedInUser-router.js";
 import reserdevTimesRouter from "./routes/api/reservedTime-router.js";
+import appointmentsForLoggedInUserRouter from "./routes/api/appointmentsForLoggedInUser-router.js";
 
 const app: Application = express();
 const server = http.createServer(app);
@@ -29,9 +30,12 @@ app.use(
   psychologistsForNotLoggedInUserRouter
 );
 app.use("/api/loggedin/psychologists", psychologistsForLoggedInUserRouter);
+
 app.use("/api/psychologists/favorite", psychologistsFavoriteRouter);
 
 app.use("/api/not-loggedin/appointments", appointmentsForNotLoggedInUserRouter);
+app.use("/api/loggedin/appointments", appointmentsForLoggedInUserRouter);
+
 app.use("/api/reserved-times", reserdevTimesRouter);
 
 app.use((req: Request, res: Response) => {

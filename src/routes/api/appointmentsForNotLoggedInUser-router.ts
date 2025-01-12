@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import { ctrlWrapper, isValidBody } from "../../decorators/index.js";
 import {
-  addAppointment,
+  addAppointmentsForNotLoggedInUser,
   appointmentIsComplete,
 } from "../../controllers/appointments-controller/index.js";
 import { isEmptyBody } from "../../middleware/index.js";
@@ -13,7 +13,7 @@ appointmentsForNotLoggedInUserRouter.post(
   "/",
   isEmptyBody,
   isValidBody(appointmentForNotLoggedInUserSchema),
-  ctrlWrapper(addAppointment)
+  ctrlWrapper(addAppointmentsForNotLoggedInUser)
 );
 
 appointmentsForNotLoggedInUserRouter.get(

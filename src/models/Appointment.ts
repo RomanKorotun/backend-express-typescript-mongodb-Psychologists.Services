@@ -40,5 +40,13 @@ export const appointmentForNotLoggedInUserSchema = Joi.object({
   time: Joi.string().required(),
 });
 
+export const appointmentForLoggedInUserSchema = Joi.object({
+  psychologistId: Joi.string().required(),
+  clientId: Joi.string().required(),
+  client_phone: Joi.string().required(),
+  date: Joi.string().required(),
+  time: Joi.string().required(),
+});
+
 const Appointment = model("appointment", AppointmentSchema);
 export default Appointment;

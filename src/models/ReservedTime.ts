@@ -1,12 +1,11 @@
 import { Schema, model } from "mongoose";
 import Joi from "joi";
-import { handleSaveError } from "./hooks.js";
+import { handleAddSettings, handleSaveError } from "./hooks.js";
 
 const ReservedTimeSchema = new Schema(
   {
     psychologistId: { type: Schema.Types.ObjectId, required: true },
     clientId: { type: String, required: true },
-    // date: { type: Date, required: true },
     date: { type: String, required: true },
     time: { type: String, required: true },
     isReserved: { type: Boolean, default: true },
@@ -15,6 +14,8 @@ const ReservedTimeSchema = new Schema(
 );
 
 ReservedTimeSchema.post("save", handleSaveError);
+ReservedTimeSchema.pre("findOneAndUpdate", handleAddSettings);
+ReservedTimeSchema.post("findOneAndUpdate", handleSaveError);
 
 export const addReservedTimeSchema = Joi.object({
   psychologistId: Joi.string().required(),

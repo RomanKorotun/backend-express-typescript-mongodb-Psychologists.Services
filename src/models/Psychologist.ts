@@ -10,7 +10,9 @@ const PsychologistsSchema = new Schema<IPsychologistsDocument>(
     experience: { type: String, required: true },
     reviews: [
       {
+        clientId: { type: Schema.Types.ObjectId, required: true },
         reviewer: { type: String, required: true },
+        avatar: { type: String, required: true },
         rating: { type: Number, required: true },
         comment: { type: String, required: true },
         date: { type: String, required: true },
@@ -27,6 +29,7 @@ const PsychologistsSchema = new Schema<IPsychologistsDocument>(
   { versionKey: false, timestamps: true }
 );
 
+PsychologistsSchema.pre("findOneAndUpdate", handleAddSettings);
 PsychologistsSchema.pre("findOneAndUpdate", handleAddSettings);
 PsychologistsSchema.post("findOneAndUpdate", handleSaveError);
 

@@ -9,7 +9,7 @@ const addReviewForLoggedInUser = async (
 ) => {
   const { id } = req.params;
   const { rating: currentRating, comment } = req.body;
-  const { username } = req.user;
+  const { username, avatar, _id } = req.user;
   const currentUser = 1;
   const psychologist = await Psychologist.findById(id);
   const totalRating = psychologist?.reviews.reduce(
@@ -20,15 +20,39 @@ const addReviewForLoggedInUser = async (
   const newRating = Number(
     ((currentRating + totalRating) / (currentUser + totalUsers)).toFixed(2)
   );
+
   const date = new Date();
+
   const newPsychologist = await Psychologist.findByIdAndUpdate(id, {
     $push: {
-      reviews: { reviewer: username, rating: currentRating, comment, date },
+      reviews: {
+        clientId: _id,
+        reviewer: username,
+        avatar,
+        rating: currentRating,
+        comment,
+        date,
+      },
     },
     $set: { rating: newRating },
   }).select("-updatedAt");
 
-  wsServer.emit("newReview", newPsychologist);
+  const responseReview = {
+    _id: newPsychologist?._id,
+    rating: newPsychologist?.rating,
+    reviews: [
+      {
+        clientId: _id,
+        reviewer: username,
+        avatar,
+        rating: currentRating,
+        comment,
+        date,
+      },
+    ],
+  };
+
+  wsServer.emit("newReview", responseReview);
 };
 
 export default addReviewForLoggedInUser;

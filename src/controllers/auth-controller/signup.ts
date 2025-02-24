@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import "dotenv/config.js";
 import User from "../../models/User.js";
 import { HttpError } from "../../helpers/index.js";
-import "dotenv/config.js";
 
 const {
   ACCESS_TOKEN_SECRET,

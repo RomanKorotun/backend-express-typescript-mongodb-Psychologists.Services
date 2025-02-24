@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 import User from "../../models/User.js";
 import { HttpError } from "../../helpers/index.js";
 

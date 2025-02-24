@@ -10,6 +10,7 @@ import psychologistsFavoriteRouter from "./routes/api/psychologistsFavorite-rout
 import appointmentsForNotLoggedInUserRouter from "./routes/api/appointmentsForNotLoggedInUser-router.js";
 import reserdevTimesRouter from "./routes/api/reservedTime-router.js";
 import appointmentsForLoggedInUserRouter from "./routes/api/appointmentsForLoggedInUser-router.js";
+import paymentRouter from "./routes/api/payment-router.js";
 
 const app: Application = express();
 const server = http.createServer(app);
@@ -22,6 +23,7 @@ const formatsLogger = process.env.NODE_ENV === "development" ? "dev" : "short";
 app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRouter);
 
@@ -37,6 +39,7 @@ app.use("/api/not-loggedin/appointments", appointmentsForNotLoggedInUserRouter);
 app.use("/api/loggedin/appointments", appointmentsForLoggedInUserRouter);
 
 app.use("/api/reserved-times", reserdevTimesRouter);
+app.use("/api/create-payment", paymentRouter);
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({ message: "Not Found" });

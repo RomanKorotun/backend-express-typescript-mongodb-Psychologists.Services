@@ -29,7 +29,7 @@ const createPayment = async (req: ICustomerRequest, res: Response) => {
     description: description,
     order_id: orderId,
     server_url:
-      "https://faa9-91-214-85-80.ngrok-free.app/api/create-payment/callback",
+      "https://backend-express-typescript-mongodb.onrender.com/api/create-payment/callback",
     expired_date: formattedDate,
   };
 

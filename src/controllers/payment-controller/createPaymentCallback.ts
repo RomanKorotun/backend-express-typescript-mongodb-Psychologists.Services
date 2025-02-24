@@ -36,7 +36,7 @@ const createPaymentCallback = async (req: Request, res: Response) => {
       });
 
       const email = {
-        to: "warav75624@codverts.com",
+        to: `${appointment?.client_email}`,
         subject: "Appointment at Psychologists.Services",
         html: `<div>${psychologist?.name}</div><div>${appointment?.date}</div><div>${appointment?.time}</div><a target="_blank" href=${appointment?.meetingLink}>${appointment?.meetingLink}</a>`,
       };

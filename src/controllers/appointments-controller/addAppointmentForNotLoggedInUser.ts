@@ -40,7 +40,7 @@ const addAppointmentsForNotLoggedInUser = async (
         });
       }
     }
-  }, 3 * 60 * 1000);
+  }, 5 * 60 * 1000);
 
   res.status(201).json(appointment);
 };

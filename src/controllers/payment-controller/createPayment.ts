@@ -3,7 +3,12 @@ import "dotenv/config";
 import { generateSignature, HttpError } from "../../helpers/index.js";
 import { ICustomerRequest } from "../../interfaces/authInterfaces.js";
 
-const { PRIVATE_KEY_LIQPAY, PUBLIC_KEY_LIQPAY } = process.env;
+const {
+  BASE_URL_FRONTEND,
+  BASE_URL_BACKEND,
+  PRIVATE_KEY_LIQPAY,
+  PUBLIC_KEY_LIQPAY,
+} = process.env;
 
 const createPayment = async (req: ICustomerRequest, res: Response) => {
   const { amount, currency, description, orderId } = req.body;
@@ -13,7 +18,7 @@ const createPayment = async (req: ICustomerRequest, res: Response) => {
   }
 
   const expiredDate = new Date();
-  expiredDate.setMinutes(expiredDate.getMinutes() + 1);
+  expiredDate.setMinutes(expiredDate.getMinutes() + 3);
   // Отримуємо форматовану дату у вигляді YYYY-MM-DD HH:MM:SS
   const formattedDate = expiredDate
     .toISOString()
@@ -28,8 +33,8 @@ const createPayment = async (req: ICustomerRequest, res: Response) => {
     currency: currency,
     description: description,
     order_id: orderId,
-    server_url:
-      "https://backend-express-typescript-mongodb.onrender.com/api/create-payment/callback",
+    result_url: `${BASE_URL_FRONTEND}/psychologists`,
+    server_url: `${BASE_URL_BACKEND}/api/create-payment/callback`,
     expired_date: formattedDate,
   };
 

@@ -7,7 +7,7 @@ import { wsServer } from "../../app.js";
 import Psychologist from "../../models/Psychologist.js";
 import { sendEmail } from "../../helpers/index.js";
 
-const { PRIVATE_KEY_LIQPAY } = process.env;
+const { BASE_URL_FRONTEND, PRIVATE_KEY_LIQPAY } = process.env;
 
 const createPaymentCallback = async (req: Request, res: Response) => {
   const { data, signature } = req.body;
@@ -18,8 +18,9 @@ const createPaymentCallback = async (req: Request, res: Response) => {
     .createHash("sha1")
     .update(`${PRIVATE_KEY_LIQPAY}${data}${PRIVATE_KEY_LIQPAY}`)
     .digest("base64");
-
+  console.log("createPaymentCallback");
   if (calculatedSignature === signature) {
+    console.log("success");
     if (parsedData.status === "success") {
       const zoomMeetingLink = `https://zoom.us/j/${parsedData.order_id}`;
 
@@ -45,6 +46,7 @@ const createPaymentCallback = async (req: Request, res: Response) => {
     }
 
     if (parsedData.status !== "success") {
+      console.log("failured");
       await Appointment.findOneAndUpdate(
         { clientId: parsedData.order_id },
         { paymentStatus: "failed", is_reserved: false }
